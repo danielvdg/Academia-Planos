@@ -1,11 +1,11 @@
-const Aula = require('../Models/Aulas')
-const AulaDAO = require('../DAO/AulaDAO')
+const Plano = require('../Models/Planos')
+const PlanoDAO = require('../DAO/PlanoDAO')
 
 module.exports = (app,db) => {
-    let aulaBanco = new AulaDAO(db)
+    let PlanoBanco = new PlanoDAO(db)
     // Listar
-    app.get('/aula', function (req, res) {
-       aulaBanco.getAllAulas()
+    app.get('/planos', function (req, res) {
+       PlanoBanco.getAllPlanos()
        .then((rows)=>{
            res.json({
                result:rows,
@@ -20,20 +20,24 @@ module.exports = (app,db) => {
        
     });
 
-    app.get('/aulas/:modalidade?',(req,res)=>{
-        let arrayFiltar = db.aula.filter((element)=>{
+    app.get('/Planos/:modalidade?',(req,res)=>{
+        let arrayFiltar = db.Plano.filter((element)=>{
             return element.modalidade === req.params.modalidade
             
         })
 
     });
 
+    app.get('/',(req,res)=>{
+        res.send('testando o heroku rota get')
+
+    });
+
     app.post('/',(req,res) =>{ 
-      
         res.json({
-          message: "Usuario criado com sucesso",
-          error: false,
-        });
+            message:'funcinando rota post'
+
+        })
     })
 
     app.put('/',(req,res) =>{

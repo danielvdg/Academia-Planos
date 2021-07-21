@@ -5,13 +5,13 @@ const app = express()
 const port = 3000
 
 // imports controllers
-const aulaController = require('./Controllers/aulaController')
+const planoController = require('./Controllers/planoController')
 
 // midleware
 app.use(express.json())
 
 // Usando as rotas
-aulaController(app)
+planoController(app)
 
 // booting port
 app.listen(port,() =>{
