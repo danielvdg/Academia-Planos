@@ -28,19 +28,19 @@ module.exports = (app,db) => {
 
     });
 
-    app.get('/',(req,res)=>{
+    app.get('/get',(req,res)=>{
         res.send('testando o heroku rota get')
 
     });
 
-    app.post('/',(req,res) =>{ 
+    app.post('/post',(req,res) =>{ 
         res.json({
             message:'funcinando rota post'
 
         })
     })
 
-    app.put('/',(req,res) =>{
+    app.put('/put',(req,res) =>{
         res.json({
             message:'funcinando rota put'
 
@@ -48,7 +48,7 @@ module.exports = (app,db) => {
 
     })
 
-    app.delete('/',(req,res) =>{
+    app.delete('/delete',(req,res) =>{
         res.json({
             message:'funcinando rota delete'
             
