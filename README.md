@@ -1,16 +1,19 @@
 # API academia utilizando padrão Rest
 
-## Introdução
-
 ## Preparação do sistema
 
- para utilizar a API você deve seguir o seguintes passos
+ para utilizar a API você deve seguir o seguintes passos:
 
-* npm init
+* passo 1:
+ Utilize  ```git clone https://github.com/danielvdg/Academia-Planos```
 
-* npm i express
+* passo 2:
+ instale as dependências do projeto escrevendo:
+``` npm init ```
 
-* npm i nodemon
+ [link npm express](https://www.npmjs.com/package/express)
+
+ [link npm nodemon](https://www.npmjs.com/package/nodemon)
 
 ## Frameworks Usados
 
