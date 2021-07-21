@@ -27,6 +27,10 @@ module.exports = (app,db) => {
         })
 
     });
+    app.get('/',(req,res)=>{
+        res.send('Funcionando')
+
+    });
 
     app.get('/get',(req,res)=>{
         res.send('testando o heroku rota get')
