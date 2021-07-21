@@ -28,12 +28,16 @@ module.exports = (app,db) => {
 
     });
 
+    app.get('/',(req,res)=>{
+        res.send('testando o heroku rota get')
+
+    });
+
     app.post('/',(req,res) =>{ 
-      
         res.json({
-          message: "Usuario criado com sucesso",
-          error: false,
-        });
+            message:'funcinando rota post'
+
+        })
     })
 
     app.put('/',(req,res) =>{
