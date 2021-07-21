@@ -1,11 +1,11 @@
-class AulaDAO{
+class PlanoDAO{
     constructor(db){
         this._db = db;
     }
 
-    getAllAulas(){
+    getAllPlanos(){
         return Promise((resolve,reject)=>{
-            this.db.all('select * from aulas',(err, rows)=>{
+            this.db.all('select * from planos',(err, rows)=>{
                 if(err){
                     reject(err);
 
@@ -20,10 +20,10 @@ class AulaDAO{
 
     };
 
-    insertAula(aula){
+    insertPlanos(plano){
         return new Promise ((resolve,reject)=>{
-            this.db.run('insert into aulas(modalidade,horario,sala,serie,tipo) values(?,?,?,?,?)',
-            Object.values(aulas), (err)=>{
+            this.db.run('insert into plano(plano,valor,quantidade) values(?,?,?)',
+            Object.values(plano), (err)=>{
                 if(err){
                     reject(err);
 
@@ -38,4 +38,4 @@ class AulaDAO{
     }
 };
 
-module.exports = AulaDAO
+module.exports = PlanoDAO
