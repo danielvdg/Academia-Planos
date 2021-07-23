@@ -1,20 +1,25 @@
-// imports do module
 const express = require('express')
+const bd = require('./Infra/sqlite-db')
+//Configs
 const app = express()
-
 const port = 3000
 
-// imports controllers
-const planoController = require('./Controllers/planoController')
 
-// midleware
+
+//Import Router
+const planosControllers = require('./Controllers/planosControllers')
+
+//Import Models n DB
+
+
+
+//Middlewares
 app.use(express.json())
 
-// Usando as rotas
-planoController(app)
+//Usando Rotas
+planosControllers(app,bd)
 
-// booting port
 app.listen(port,() =>{
-console.log(`acessar:http://localhost:${port}`);
-
+    console.log(`Acessar localhost:${port}`);
+    console.log(`porta iniciada`);
 })

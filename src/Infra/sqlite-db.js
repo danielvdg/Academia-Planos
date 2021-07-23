@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./src/infra/database.db');
+const bd = new sqlite3.Database('./src/infra/database.db');
 
 
 //Processamento de sinal
@@ -10,4 +10,4 @@ process.on('SIGINT', () =>
     })
 );
 
-module.exports = db;
+module.exports = bd;

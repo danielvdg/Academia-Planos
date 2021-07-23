@@ -1,21 +1,30 @@
 {
   "name": "academia",
   "version": "1.0.0",
-  "description": "API",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/app.js",
-    "start":"node ./src/app.js",
-    "populate": "node ./src/Infra/create-and-populate.js"
+    "start": "node ./src/app.js",
+    "populate": "node ./src/infra/create-and-populate.js"  
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielvdg/Academia-Planos.git"
   },
   "author": "Daniel Alves",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielvdg/Academia-Planos/issues"
+  },
+  "homepage": "https://github.com/danielvdg/Academia-Planos#readme",
   "dependencies": {
     "express": "^4.17.1",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "jest": "^27.0.6",
     "nodemon": "^2.0.12",
     "supertest": "^6.1.4"
   }
