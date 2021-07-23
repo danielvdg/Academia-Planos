@@ -2,77 +2,38 @@
 Esse arquivo deve ser executado apenas uma vez para que a o banco seja criado e populado
 */
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./database.db');
+const db = new sqlite3.Database('./src/Infra/database.db');
 
 //==== Usuários
-const USUARIOS_SCHEMA = `
-CREATE TABLE IF NOT EXISTS "USUARIOS" (
+const ACADEMIA_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "ACADEMIA" (
     "ID" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "NOME" varchar(64),
-    "EMAIL" varchar(64),
-    "SENHA" varchar(64)
+    "PLANO" VARCHAR(64),
+    "VALOR" FLOAT,
+    "QUANTIDADE" INTEGER
   );`;
 
-const ADD_USUARIOS_DATA = `
-INSERT INTO USUARIOS (ID, NOME, EMAIL, SENHA)
+const ADD_ACADEMIA_DATA = `
+INSERT INTO ACADEMIA (ID, PLANO, VALOR, QUANTIDADE)
 VALUES 
-    (1, 'Eugênio Oliveira', 'eugenio.oliveira@bol.com.br', '*******'),
-    (2, 'Olívia Ribeiro', 'olivia.ribeiro@gmail.com', '********'),
-    (3, 'Mirtes Faria Lima', 'mirtes_fl@yahoo.com', '********')
+    (1, 'básico',69.99,3 )
+
 `
 
-function criaTabelaUsr() {
-    db.run(USUARIOS_SCHEMA, (error)=> {
+function criaTabelaAcad() {
+    db.run(ACADEMIA_SCHEMA, (error)=> {
        if (error) console.log("Erro ao criar tabela de usuários");
     });
 }
 
-
-function populaTabelaUsr() {
-    db.run(ADD_USUARIOS_DATA, (error)=> {
+function populaTabelaAcad() {
+    db.run(ADD_ACADEMIA_DATA, (error)=> {
        if (error) console.log("Erro ao popular tabela de usuários");
     });
 }
 
 
-//==== Tarefas
-const TAREFAS_SCHEMA = `
-CREATE TABLE IF NOT EXISTS TAREFAS (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT, 
-    TITULO VARCHAR(64),
-    DESCRICAO TEXT,
-    STATUS VARCHAR(32),
-    DATACRIACAO VARCHAR(32),
-    ID_USUARIO INTEGER,
-    FOREIGN KEY(ID_USUARIO) REFERENCES USUARIOD(ID)
-);`;
-
-const ADD_TAREFAS_DATA = `INSERT INTO TAREFAS (TITULO, DESCRICAO, STATUS, DATACRIACAO, ID_USUARIO)
-VALUES 
-       ('Yoga', 'Fazer yoga segunda e quarta', 'Continuo', '2021-01-10', 2),
-       ('Médico', 'Consulta com Dr. Ayrton sexta', 'TODO', '2021-01-13', 1),
-       ('Pagar contas', 'Pagar boletos de água e luz', 'DOING', '2021-01-02', 2),
-       ('Mercado', 'Pegar lista na geladeira e fazer compras', 'TODO', '2021-01-08', 2),
-       ('Dentista', 'Consulta com Dra Andreia sexta', 'TODO', '2021-01-11', 1),
-       ('Pagar financiamento carro', 'Pagar parcela do mês do financiamento', 'Contínuo', '2021-01-05', 3)
-`
-
-function criaTabelaTarefas() {
-    db.run(TAREFAS_SCHEMA, (error)=> {
-        if(error) console.log("Erro ao criar tabela de Tarefas");
-    });
-}
-
-
-function populaTabelaTarefas() {
-    db.run(ADD_TAREFAS_DATA, (error)=> {
-       if (error) console.log("Erro ao popular tabela de Tarefas");
-    });
-}
-
 db.serialize( ()=> {
-    criaTabelaUsr();
-    populaTabelaUsr();
-    criaTabelaTarefas();
-    populaTabelaTarefas();
+    criaTabelaAcad();
+    populaTabelaAcad();   
 });
