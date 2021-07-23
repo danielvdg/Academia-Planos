@@ -18,8 +18,9 @@ module.exports = (app, bd) => {
   });
 
   app.get("/planos/:plano", (req, res) => {
+    let selectPlano = req.params.plano
     PlanoBanco
-    .getFilterPlano()
+    .getFilterPlano(selectPlano)
     .then((rows) => {
       res.json({
         result: rows,
@@ -32,25 +33,25 @@ module.exports = (app, bd) => {
    
   });
 
-//   app.post("/users", (req, res) => {
-//     const { nome, email, senha } = req.body;
-//     let newUser = new User(nome, email, senha);
-//     userBanco
-//       .insertUser(newUser)
-//       .then(() => {
-//         res.status(201).json({
-//           message: "Usuário inserido com sucesso",
-//           error: false,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json({
-//           message: "Erro inserido com sucesso",
-//           error: true,
-//         });
-//       });
-//   });
+  app.post("/planos", (req, res) => {
+    const { plano, valor, quantidade } = req.body;
+    let newPlano = new Plano(plano, valor, quantidade);
+    PlanoBanco
+      .insertPlano(newPlano)
+      .then(() => {
+        res.status(201).json({
+          message: "Plano inserido com sucesso",
+          error: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          message: "Erro não foi possivel inserir ",
+          error: true,
+        });
+      });
+  });
 
 //   app.delete("/users/:email", (req, res) => {
 //     let countArray = db.users.length;
