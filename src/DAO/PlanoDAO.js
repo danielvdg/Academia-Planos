@@ -35,29 +35,31 @@ class PlanoDAO {
   
   insertPlano(newPlano) {
     return new Promise((resolve, reject) => {
-    this.bd.run(`INSERT INTO ACADEMIA(PLANO,VALOR,QUANTIDADE) VALUES (?,?,?)`,
-      Object.values(newPlano),
-      (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(true);
+      console.log(newPlano);
+      this.bd.run(`INSERT INTO ACADEMIA(PLANO,VALOR,QUANTIDADE) VALUES (?,?,?)`,newPlano.plano,newPlano.valor,newPlano.quantidade,(err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve({
+              message: "Plano inserido com sucesso",
+              error: false
+            });
+          }
         }
-      }
-
-    );
+        
+      );
 
     });
 
   }
 
-  deletePlano(plano){
+  deletePlano(idPlano){
     return new Promise((resolve,reject)=>{
-      this.bd.all("SELECT * FROM ACADEMIA WHERE PLANO = ? ",plano,(err,rows) =>{
+      this.bd.all("DELETE FROM ACADEMIA WHERE ID = ? ",idPlano,(err) =>{
         if (err) {
         reject(err);
         } else {
-        resolve(rows);
+        resolve({message:'plano deletado com suceeso'});
         }
 
       })
@@ -65,6 +67,8 @@ class PlanoDAO {
     })
 
   }
+
+  
 
 }
   
