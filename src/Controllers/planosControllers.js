@@ -1,11 +1,11 @@
-const Plano = require("../Models/Plano");
+
 const PlanoDAO = require("../DAO/PlanoDAO");
-module.exports = (app, bd) => {
+
+module.exports = (app, bd,PlanoModel) => {
   let PlanoBanco = new PlanoDAO(bd);
 
-  app.get("/planos", (req, res) => {
-    PlanoBanco
-      .getAllPlano()
+  app.get("/planos", async (req, res) => {
+    await PlanoBanco.getAllPlano()
       .then((rows) => {
         res.json({
           result: rows,
@@ -17,10 +17,9 @@ module.exports = (app, bd) => {
       });
   });
 
-  app.get("/planos/:plano", (req, res) => {
+  app.get("/planos/:plano",async (req, res) => {
     let selectPlano = req.params.plano
-    PlanoBanco
-    .getFilterPlano(selectPlano)
+     await PlanoBanco.getFilterPlano(selectPlano)
     .then((rows) => {
       res.json({
         result: rows,
@@ -33,82 +32,68 @@ module.exports = (app, bd) => {
    
   });
 
-  app.post("/planos", (req, res) => {
-    const { plano, valor, quantidade } = req.body;
-    let newPlano = new Plano(plano, valor, quantidade);
-    PlanoBanco
-      .insertPlano(newPlano)
-      .then(() => {
-        res.status(201).json({
-          message: "Plano inserido com sucesso",
-          error: false,
-        });
+  app.post("/planos", async (req, res) => {
+    const { plano,valor, quantidade } = req.body;
+    let newPlano = new PlanoModel(plano, valor, quantidade);
+     await PlanoBanco.insertPlano(newPlano)
+      .then((sucess) => {
+        res.status(201).json(sucess);
       })
       .catch((err) => {
         console.log(err);
         res.status(500).json({
           message: "Erro não foi possivel inserir ",
-          error: true,
+          error: true
         });
       });
   });
 
-//   app.delete("/users/:email", (req, res) => {
-//     let countArray = db.users.length;
+  app.delete("/planos/:id", async (req, res) => {
+    let idPlano = req.params.id
+    await PlanoBanco.deletePlano(idPlano)    
+    .then((sucess)=>res.status(200).json(sucess))
+    .catch((err)=> res.status(500).json(err))
+    
 
-//     db.users = db.users.filter((element) => {
-//       return element.email !== req.params.email;
-//     });
+    
+  });
 
-//     if (countArray === db.users.length) {
-//       res.json({
-//         message: `não existe usuario com esse email ${req.params.email}`,
-//         error: true,
-//       });
-//     } else {
-//       res.json({
-//         message: `Usuario com o email: ${req.params.email} deletado com sucesso`,
-//         error: false,
-//       });
-//     }
-//   });
-
-//   app.put("/users/:email", (req, res) => {
-//     const { nome, email, senha } = req.body;
-//     var varQnt = 0;
-//     if (nome || email || senha) {
-//       db.users.forEach((element) => {
-//         if (element.email === req.params.email) {
-//           if (nome) {
-//             element["nome"] = nome;
-//           }
-//           if (email) {
-//             element["email"] = email;
-//           }
-//           if (senha) {
-//             element["senha"] = senha;
-//           }
-//           varQnt++;
-//         }
-//       });
-//       if (!varQnt) {
-//         res.json({
-//           message: "Não existe nenhum usuario com esse email",
-//           error: true,
-//         });
-//       } else {
-//         res.json({
-//           message: `Usuarios com email ${req.params.email} alterado`,
-//           error: false,
-//           count: varQnt,
-//         });
-//       }
-//     } else {
-//       res.json({
-//         message:
-//           "Não foi possivel atualizar o usuario, nenhum campo valido foi passado ( Esperado {nome,email,senha} )",
-//         error: true,
-//       });
-//     }
-//   });
+  // app.put("/planos/:plano", (req, res) => {
+  //   const { plano, valor, quantidade } = req.body;
+  //   var varQnt = 0;
+  //   if (plano || valor || quantidade) {
+  //     db.users.forEach((element) => {
+  //       if (element.email === req.params.email) {
+  //         if (nome) {
+  //           element["nome"] = nome;
+  //         }
+  //         if (email) {
+  //           element["email"] = email;
+  //         }
+  //         if (senha) {
+  //           element["senha"] = senha;
+  //         }
+  //         varQnt++;
+  //       }
+  //     });
+  //     if (!varQnt) {
+  //       res.json({
+  //         message: "Não existe nenhum usuario com esse email",
+  //         error: true,
+  //       });
+  //     } else {
+  //       res.json({
+  //         message: `Usuarios com email ${req.params.email} alterado`,
+  //         error: false,
+  //         count: varQnt,
+  //       });
+  //     }
+  //   } else {
+  //     res.json({
+  //       message:
+  //         "Não foi possivel atualizar o usuario, nenhum campo valido foi passado ( Esperado {nome,email,senha} )",
+  //       error: true,
+  //     });
+  //   }
+  // });
 };

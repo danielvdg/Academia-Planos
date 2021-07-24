@@ -7,9 +7,10 @@ const port = 3000
 
 
 //Import Router
-const planosControllers = require('./Controllers/planosControllers')
+const planosControllers = require('./Controllers/planosControllers.js')
 
 //Import Models n DB
+const PlanoModel = require("./Models/Plano.js");
 
 
 
@@ -17,7 +18,7 @@ const planosControllers = require('./Controllers/planosControllers')
 app.use(express.json())
 
 //Usando Rotas
-planosControllers(app,bd)
+planosControllers(app,bd,PlanoModel)
 
 app.listen(port,() =>{
     console.log(`Acessar localhost:${port}`);
