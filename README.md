@@ -59,8 +59,8 @@ utilize para inserir dados os seguintes parametros
 ```
 {
     "plano": "STRING",
-    "valor": NUMERICO,
-    "quantidade": NUMERO
+    "valor": FLOAT,
+    "quantidade": INTEGER
 }
 
 ```
@@ -87,12 +87,14 @@ selecione o id e envie os parametos no body
 
 ```
 {
-    "plano": "STRING"       
+    "plano": "STRING",
+    "valor": FLOAT,
+    "quantidade": INTEGER
 }
 
 ```
 
-
+no valor com casas decimais devem ser separados com . por exemplo: 69.99
 
 
 
