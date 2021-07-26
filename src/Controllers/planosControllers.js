@@ -37,11 +37,11 @@ module.exports = (app, bd,PlanoModel) => {
     let newPlano = new PlanoModel(plano, valor, quantidade);
      await PlanoBanco.insertPlano(newPlano)
       .then((sucess) => {
-        res.status(201).json(sucess);
+        res.json(sucess);
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({
+        res.json({
           message: "Erro não foi possivel inserir ",
           error: true
         });
@@ -51,49 +51,24 @@ module.exports = (app, bd,PlanoModel) => {
   app.delete("/planos/:id", async (req, res) => {
     let idPlano = req.params.id
     await PlanoBanco.deletePlano(idPlano)    
-    .then((sucess)=>res.status(200).json(sucess))
-    .catch((err)=> res.status(500).json(err))
+    .then((sucess)=>res.json(sucess))
+    .catch((err)=> res.json(err))
     
 
     
   });
 
-  // app.put("/planos/:plano", (req, res) => {
-  //   const { plano, valor, quantidade } = req.body;
-  //   var varQnt = 0;
-  //   if (plano || valor || quantidade) {
-  //     db.users.forEach((element) => {
-  //       if (element.email === req.params.email) {
-  //         if (nome) {
-  //           element["nome"] = nome;
-  //         }
-  //         if (email) {
-  //           element["email"] = email;
-  //         }
-  //         if (senha) {
-  //           element["senha"] = senha;
-  //         }
-  //         varQnt++;
-  //       }
-  //     });
-  //     if (!varQnt) {
-  //       res.json({
-  //         message: "Não existe nenhum usuario com esse email",
-  //         error: true,
-  //       });
-  //     } else {
-  //       res.json({
-  //         message: `Usuarios com email ${req.params.email} alterado`,
-  //         error: false,
-  //         count: varQnt,
-  //       });
-  //     }
-  //   } else {
-  //     res.json({
-  //       message:
-  //         "Não foi possivel atualizar o usuario, nenhum campo valido foi passado ( Esperado {nome,email,senha} )",
-  //       error: true,
-  //     });
-  //   }
-  // });
+  app.put("/planos/:id", (req, res) => {
+    const idSet = req.params.id
+    const body = req.body
+    const set = [body.plano,body.valor,body.quantidade]
+    PlanoBanco.putPlano(idSet,set)
+    .then((sucess)=> res.json(sucess))
+    .catch((err)=> {
+      res.json({message:'Plano alterado com sucesso'})
+      console.log(err.message );
+    })
+
+  });
+
 };
