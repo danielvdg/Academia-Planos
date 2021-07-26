@@ -87,8 +87,7 @@ selecione o id e envie os parametos no body
 
 ```
 {
-    "plano": "STRING",
-       
+    "plano": "STRING"       
 }
 
 ```
