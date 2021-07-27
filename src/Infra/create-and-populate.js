@@ -4,7 +4,7 @@ Esse arquivo deve ser executado apenas uma vez para que a o banco seja criado e 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./src/Infra/database.db');
 
-//==== Usuários
+//==== Academia
 const ACADEMIA_SCHEMA = `
 CREATE TABLE IF NOT EXISTS "ACADEMIA" (
     "ID" INTEGER PRIMARY KEY AUTOINCREMENT,

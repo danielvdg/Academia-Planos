@@ -2,7 +2,7 @@ const express = require('express')
 const bd = require('./Infra/sqlite-db')
 //Configs
 const app = express()
-const port = 3000
+const port =  process.env.PORT || 3000;
 
 
 
@@ -20,7 +20,7 @@ app.use(express.json())
 //Usando Rotas
 planosControllers(app,bd,PlanoModel)
 
-app.listen(port,() =>{
+app.listen(port ,() =>{
     console.log(`Acessar localhost:${port}`);
     console.log(`porta iniciada`);
 })
